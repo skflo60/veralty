@@ -46,10 +46,27 @@ class GameController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    public function list()
-    {
+    public function list() {
         $Game = $this->paginate($this->Game);
         $this->set(compact('Game'));
+    }
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|void
+     */
+    public function catalog($id)
+    {
+        // Arguments passés
+        $PublicVisibility = (bool)$this->request->getQuery('public', false);
+        $games = $this->Game->find('all')->matching('Catalog', function ($q) use ($id) {
+            return $q->where(['Catalog.Id' => $id]);
+        })
+        ->where(["PublicVisibility" => $PublicVisibility]);
+        $this->response->type('json');
+        $this->response->body(json_encode($games));
+        return $this->response;
     }
 
     /**
@@ -88,12 +105,15 @@ class GameController extends AppController
             if ($this->Game->save($game)) {
                 $this->Flash->success(__('The game has been saved.'));
 
+
                 // Add association for each GameCatalog
-                foreach($linkedCatalogs as $catalog) {
-                    $gameCatalog = $this->GameCatalog->newEntity();
-                    $gameCatalog->IdGame = $game->Id;
-                    $gameCatalog->IdCatalog = $catalog;
-                    $this->GameCatalog->save($gameCatalog);
+                foreach((array)$linkedCatalogs as $catalog) {
+                    if ($catalog) {
+                        $gameCatalog = $this->GameCatalog->newEntity();
+                        $gameCatalog->IdGame = $game->Id;
+                        $gameCatalog->IdCatalog = $catalog;
+                        $this->GameCatalog->save($gameCatalog);
+                    }
                 }
                 return $this->redirect(['action' => 'list']);
             }
@@ -125,7 +145,7 @@ class GameController extends AppController
             if ($this->Game->save($game)) {
                 $this->Flash->success(__('The game has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'list']);
             }
             $this->Flash->error(__('The game could not be saved. Please, try again.'));
         }
@@ -149,6 +169,6 @@ class GameController extends AppController
             $this->Flash->error(__('The game could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'list']);
     }
 }

@@ -34,6 +34,11 @@ class GameTable extends Table
         $this->setTable('game');
         $this->setDisplayField('Id');
         $this->setPrimaryKey('Id');
+        $this->belongsToMany('Catalog', [
+            'joinTable' => 'GameCatalog',
+            'targetForeignKey' => 'IdCatalog',
+            'foreignKey' => 'IdGame',
+        ]);
     }
 
     /**
