@@ -26,6 +26,17 @@ class CatalogController extends AppController
     }
 
     /**
+     * List method
+     *
+     * @return \Cake\Http\Response|void
+     */
+    public function list()
+    {
+        $catalog = $this->paginate($this->Catalog);
+        $this->set(compact('catalog'));
+    }
+
+    /**
      * View method
      *
      * @param string|null $id Catalog id.

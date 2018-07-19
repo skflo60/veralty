@@ -16,13 +16,15 @@
         <li><?= $this->Html->link(__('List Game'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="Game form large-9 medium-8 columns content">
+<div class="game form large-9 medium-8 columns content">
     <?= $this->Form->create($game) ?>
     <fieldset>
         <legend><?= __('Edit Game') ?></legend>
         <?php
             echo $this->Form->control('FileImage');
             echo $this->Form->control('Description');
+            echo $this->Form->control('UrlTrailer');
+            echo $this->Form->control('PublicVisibility');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

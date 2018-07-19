@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Game[]|\Cake\Collection\CollectionInterface $game
+ * @var \App\Model\Entity\Game[]|\Cake\Collection\CollectionInterface $Game
  */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
@@ -10,7 +10,7 @@
         <li><?= $this->Html->link(__('New Game'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="game index large-9 medium-8 columns content">
+<div class="Game index large-9 medium-8 columns content">
     <h3><?= __('Game') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -18,19 +18,15 @@
                 <th scope="col"><?= $this->Paginator->sort('Id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('FileImage') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Description') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('UrlTrailer') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('PublicVisibility') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($game as $game): ?>
+            <?php foreach ($Game as $game): ?>
             <tr>
                 <td><?= $this->Number->format($game->Id) ?></td>
                 <td><?= h($game->FileImage) ?></td>
                 <td><?= h($game->Description) ?></td>
-                <td><?= h($game->UrlTrailer) ?></td>
-                <td><?= h($game->PublicVisibility) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $game->Id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $game->Id]) ?>

@@ -13,7 +13,7 @@
         <li><?= $this->Html->link(__('New Game'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="Game view large-9 medium-8 columns content">
+<div class="game view large-9 medium-8 columns content">
     <h3><?= h($game->Id) ?></h3>
     <table class="vertical-table">
         <tr>
@@ -25,8 +25,16 @@
             <td><?= h($game->Description) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('UrlTrailer') ?></th>
+            <td><?= h($game->UrlTrailer) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($game->Id) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('PublicVisibility') ?></th>
+            <td><?= $game->PublicVisibility ? __('Yes') : __('No'); ?></td>
         </tr>
     </table>
 </div>

@@ -10,13 +10,15 @@
         <li><?= $this->Html->link(__('List Game'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="Game form large-9 medium-8 columns content">
+<div class="game form large-9 medium-8 columns content">
     <?= $this->Form->create($game) ?>
     <fieldset>
         <legend><?= __('Add Game') ?></legend>
         <?php
             echo $this->Form->control('FileImage');
             echo $this->Form->textarea('Description');
+            echo $this->Form->control('UrlTrailer');
+            echo $this->Form->control('PublicVisibility');
             echo $this->Form->input('catalogs', array(
                 'multiple' => 'checkbox',
                 'options' => $catalogs

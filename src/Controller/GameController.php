@@ -13,15 +13,42 @@ use App\Controller\AppController;
 class GameController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('RequestHandler');
+    }
+
+    /**
+     * Index method REST API
+     *
+     * @return \Cake\Http\Response|void
+     */
+    public function index($id = null)
+    {
+        if ($id !== null) {
+            $games = $this->Game->find('all')->where(['Id' => $id]);
+        } else {
+            $games = $this->Game->find('all');
+        }
+        $this->set([
+            'games' => $games,
+            '_serialize' => ['games']
+        ]);
+
+        $this->response->type('json');
+        $this->response->body(json_encode($games));
+        return $this->response;
+    }
+
     /**
      * Index method
      *
      * @return \Cake\Http\Response|void
      */
-    public function index()
+    public function list()
     {
         $Game = $this->paginate($this->Game);
-
         $this->set(compact('Game'));
     }
 
@@ -66,8 +93,9 @@ class GameController extends AppController
                     $gameCatalog = $this->GameCatalog->newEntity();
                     $gameCatalog->IdGame = $game->Id;
                     $gameCatalog->IdCatalog = $catalog;
+                    $this->GameCatalog->save($gameCatalog);
                 }
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'list']);
             }
             $this->Flash->error(__('The game could not be saved. Please, try again.'));
         }

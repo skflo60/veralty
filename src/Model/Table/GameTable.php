@@ -31,7 +31,7 @@ class GameTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('Game');
+        $this->setTable('game');
         $this->setDisplayField('Id');
         $this->setPrimaryKey('Id');
     }
@@ -59,6 +59,16 @@ class GameTable extends Table
             ->maxLength('Description', 1000)
             ->requirePresence('Description', 'create')
             ->notEmpty('Description');
+
+        $validator
+            ->scalar('UrlTrailer')
+            ->maxLength('UrlTrailer', 200)
+            ->allowEmpty('UrlTrailer');
+
+        $validator
+            ->boolean('PublicVisibility')
+            ->requirePresence('PublicVisibility', 'create')
+            ->notEmpty('PublicVisibility');
 
         return $validator;
     }

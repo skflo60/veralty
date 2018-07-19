@@ -9,6 +9,8 @@ use Cake\ORM\Entity;
  * @property int $Id
  * @property string $FileImage
  * @property string $Description
+ * @property string $UrlTrailer
+ * @property bool $PublicVisibility
  */
 class Game extends Entity
 {
@@ -24,6 +26,8 @@ class Game extends Entity
      */
     protected $_accessible = [
         'FileImage' => true,
-        'Description' => true
+        'Description' => true,
+        'UrlTrailer' => true,
+        'PublicVisibility' => true
     ];
 }
