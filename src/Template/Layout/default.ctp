@@ -32,6 +32,7 @@ $cakeDescription = 'CONNARD';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <?= $this->Html->script('jquery.min'); ?>
 </head>
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">

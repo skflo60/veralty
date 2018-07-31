@@ -59,11 +59,15 @@ class GameController extends AppController
     public function catalog($id)
     {
         // Arguments passés
-        $PublicVisibility = (bool)$this->request->getQuery('public', false);
+        $PublicVisibility = (bool)$this->request->getQuery('public', true);
         $games = $this->Game->find('all')->matching('Catalog', function ($q) use ($id) {
             return $q->where(['Catalog.Id' => $id]);
         })
         ->where(["PublicVisibility" => $PublicVisibility]);
+
+        if ($PublicVisibility) {
+            $games = $games->count("*");
+        }
         $this->response->type('json');
         $this->response->body(json_encode($games));
         return $this->response;
